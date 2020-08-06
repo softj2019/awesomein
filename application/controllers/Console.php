@@ -24,7 +24,7 @@ class Console  extends CI_Controller
 		$this->load->helper('alert');
 		$this->load->library('pagination');
 		$this->load->library('user_agent');
-
+		$this->load->library('stibee_api');
 
     }
 	public function _remap($method)
@@ -66,11 +66,11 @@ class Console  extends CI_Controller
 		$data['pagination']= $this->pagination->create_links();
 		$limit[1]=$page;
 		$limit[0]=$config['per_page'];
-
+		$order_by=array('key'=>'created_at','value'=>'desc');
 		//기본목록
 		$data["list"]= $this->common->select_list_table_result('kguse',
 			$sql='kguse.*, (select Z.typename from kgref Z where Z.typetable = \'kguse\' and Z.typecolumn = \'role\' and Z.typecode = kguse.role) as role_name',
-			$where='',$coding=false,$order_by='',$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+			$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
 
 		$this->load->view('layout/header',$data);
         $this->load->view('console/mguser',$data);
@@ -426,5 +426,160 @@ class Console  extends CI_Controller
 
 
 		echo json_encode($data);
+	}
+	//스티비 사용자추가
+	public function addsubscribers(){
+		header('Content-type: application/json');
+		$this->form_validation->set_rules('email', '구독 이메일', 'required');
+		$this->form_validation->set_rules('name', '구독자 이름', 'required');
+
+		if ($this->form_validation->run() == TRUE) {
+
+			//주소록아이디
+			$listid = $this->input->post_get('listId');
+			$email = $this->input->post_get('email');
+			$name = $this->input->post_get('name');
+			//스티비 요청 URL
+			$url ="https://api.stibee.com/v1/lists/".$listid."/subscribers";
+			$userData = array (
+				array(
+				"email" => $email,
+				"name" => $name,
+				)
+			);
+			$data = array(
+				"eventOccuredBy" => "MANUAL",
+				"confirmEmailYN" => "N",
+				"subscribers" => $userData
+			);
+
+			$response = $this->stibee_api->StibeeRestFul("POST",$url,$data);
+			$list = json_decode($response);
+
+			//저장 성공시 리스트 업데이트
+			if($list->Ok){
+
+					$param=array(
+						"status"=>"S",
+						"name"=>$name,
+						"email"=>$email,
+					);
+					$this->common->insert_on_dup('stibee_subscribers',$param,$dup_key='email');
+
+			}
+			$data["alerts_status"]="success";
+		}else{
+			$data['alerts_title'] = $this->form_validation->error_array();
+			$data['alerts_icon'] ="error";
+		}
+		echo json_encode($data);
+	}
+	//스티비 사용자삭제
+	public function deletesubscribers(){
+		header('Content-type: application/json');
+		$this->form_validation->set_rules('chk[]', '삭제 대상', 'required');
+
+		if ($this->form_validation->run() == TRUE) {
+
+			//주소록아이디
+			$listid = $this->input->post_get('listId');
+			//스티비 요청 URL
+			$url ="https://api.stibee.com/v1/lists/".$listid."/subscribers";
+			$data = $this->input->post("chk");
+			$response = $this->stibee_api->StibeeRestFul("DELETE",$url,$data);
+			$list = json_decode($response);
+
+			//성공시 리스트 삭제
+			if($list->Ok){
+				foreach ($data as $key=>$value){
+					$this->common->delete_row('stibee_subscribers',array("email"=>$value));
+				}
+			}
+			$data["alerts_status"]="success";
+		}else{
+			$data['alerts_title'] = $this->form_validation->error_array();
+			$data['alerts_icon'] ="error";
+		}
+		echo json_encode($data);
+	}
+	//스티비 구독 중지
+	public function unsubscribe(){
+		header('Content-type: application/json');
+		$this->form_validation->set_rules('chk[]', '수신거부 대상', 'required');
+
+		if ($this->form_validation->run() == TRUE) {
+
+			//주소록아이디
+			$listid = $this->input->post_get('listId');
+			//스티비 요청 URL
+			$url ="https://api.stibee.com/v1/lists/".$listid."/subscribers/unsubscribe";
+			$data = $this->input->post("chk");
+			$response = $this->stibee_api->StibeeRestFul("PUT",$url,$data);
+			$list = json_decode($response);
+
+			//성공시 리스트 삭제
+			if($list->Ok){
+				foreach ($data as $key=>$value){
+					$this->common->update_rows('stibee_subscribers',array("status"=>"D"),array("email"=>$value));
+				}
+			}
+			$data["alerts_status"]="success";
+		}else{
+			$data['alerts_title'] = $this->form_validation->error_array();
+			$data['alerts_icon'] ="error";
+		}
+		echo json_encode($data);
+	}
+	//스티비 동기화
+	public function getStibee(){
+
+		//주소록아이디
+		$listid = $this->input->post_get('listId');
+		//스티비 요청 URL
+		$url ="https://api.stibee.com/v1/lists/".$listid."/subscribers";
+		$response = $this->stibee_api->StibeeRestFul("GET",$url);
+		$list = json_decode($response);
+		if($list->Ok){
+			foreach ($list->Value as $item) {
+				$param=array(
+
+					"name"=>$item->name,
+					"status"=>$item->status,
+					"createdTime"=>$item->createdTime,
+					"modifiedTime"=>$item->modifiedTime,
+					"email"=>$item->email,
+				);
+				$this->common->insert_on_dup('stibee_subscribers',$param,$dup_key='email');
+			}
+		}
+	}
+
+	//구독관리
+	public function stibee()
+	{
+		$data=Array();
+		$data['page_title']="구독자 관리";
+		$data['menu_code']="013";
+		$data['footerScript']='';
+		//페이징
+		$config['base_url'] =base_url('console/stibee');
+		$config['total_rows'] = $this->common->select_count('stibee_subscribers','','');
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+		$page = $this->uri->segment(3,0);
+		$data['pagination']= $this->pagination->create_links();
+		$limit[1]=$page;
+		$limit[0]=$config['per_page'];
+		$order_by=array('key'=>'createdTime','value'=>'desc');
+		$sql="*," .
+			"(select Z.typename from kgref Z where Z.typecolumn='status' and Z.typecode=A.status)as status_name," .
+			"(select Z.amount from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as amount," .
+			"(select Z.reg_date from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as payment_reg_date" .
+			"";
+		$data["list"]=$this->common->select_list_table_result($table='stibee_subscribers A',$sql,$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+		$this->load->view('layout/header',$data);
+		$this->load->view('console/stibee',$data);
+		$this->load->view('layout/footer',$data);
 	}
 }

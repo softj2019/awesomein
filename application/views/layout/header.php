@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta property="og:image" content="/assets/img/ci/kogas_ci.png">
-	<title>신뢰도 분석 시스템</title>
+	<title>주식회사 어썸인</title>
 	<link rel="shortcut icon" type="image⁄x-icon" href="assets/dist/img/ci/kogas_ci.ico">
 
 	<!-- Font Awesome Icons -->
@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var base_url ='<?=base_url()?>';
 	</script>
 </head>
-<body class="sidebar-mini layout-fixed">
+<body class="sidebar-mini layout-navbar-fixed ">
 <div class="wrapper">
 
 	<!-- Navbar -->
@@ -54,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- Messages Dropdown Menu -->
 
 			<li class="nav-item">
-				<a class="nav-link" href="/member/logout">
+				<a class="nav-link" href="https://kauth.kakao.com/oauth/logout?client_id=a0c10d1fa237662ef92188216ee55180&logout_redirect_uri=<?=base_url("/member/logout")?>">
 					<i class="fas fa-power-off"></i>로그아웃
 			</a>
 			</li>
@@ -66,114 +66,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<a href="/" class="brand-link">
-
-			<span class="brand-text font-weight-light">설비 신뢰도 분석시스템</span>
+			<span class="brand-text font-weight-light">주식회사 어썸인</span>
 		</a>
 
 		<!-- Sidebar -->
 		<div class="sidebar">
-			<!-- Sidebar user panel (optional) -->
-<!--			<div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
-<!--				<div class="image">-->
-<!--					<img src="/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
-<!--				</div>-->
-
-
-<!--			</div>-->
 
 			<!-- Sidebar Menu -->
 			<nav class="mt-2">
 				<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class
-						 with font-awesome or any other icon font library -->
-<!--					<li class="nav-item has-treeview menu-open">-->
-<!--						<a href="#" class="nav-link active">-->
-<!--							<i class="nav-icon fas fa-tachometer-alt"></i>-->
-<!--							<p>-->
-<!--								대시보드-->
-<!--								<i class="right fas fa-angle-left"></i>-->
-<!--							</p>-->
-<!--						</a>-->
-<!--						<ul class="nav nav-treeview">-->
-<!--							<li class="nav-item">-->
-<!--								<a href="#" class="nav-link active">-->
-<!--									<i class="far fa-circle nav-icon"></i>-->
-<!--									<p>Active Page</p>-->
-<!--								</a>-->
-<!--							</li>-->
-<!--							<li class="nav-item">-->
-<!--								<a href="#" class="nav-link">-->
-<!--									<i class="far fa-circle nav-icon"></i>-->
-<!--									<p>Inactive Page</p>-->
-<!--								</a>-->
-<!--							</li>-->
-<!--						</ul>`-->
-<!--					</li>-->
 
+					<?php if(@$this->session->userdata('is_admin')) {?>
 					<li class="nav-item">
-
 						<a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#modal-user">
 							<p>
 								<?=@$this->session->userdata('name')?>
 								<span class="badge badge-info right">
-								<i class="fas fa-user"></i> &nbsp;MyPage
-						</span>
+									<i class="fas fa-user"></i> &nbsp;MyPage
+								</span>
 							</p>
 						</a>
-
 					</li>
+					<?php }?>
 					<li class="nav-item">
 						<a href="/" class="nav-link <?=$menu_code=='001'?'active':''?>">
-							<i class="nav-icon fas fa-tachometer-alt"></i>
+							<i class="nav-icon fas fa-mail-bulk"></i>
 							<p>
-								대시보드
-<!--								<span class="right badge badge-danger">New</span>-->
+								구독신청
 							</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/kgbasicpbt/writeform" class="nav-link <?=$menu_code=='005'?'active':''?>">
-							<i class="nav-icon fas fa-chart-area"></i>
+						<a href="/member/mystibee" class="nav-link <?=$menu_code=='014'?'active':''?>">
+							<i class="nav-icon fas fa-envelope-open-text"></i>
 							<p>
-								기초 통계 분석(생산)
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="/kgbasicsbt/writeform" class="nav-link <?=$menu_code=='006'?'active':''?>">
-							<i class="nav-icon fas fa-chart-area"></i>
-							<p>
-								기초 통계 분석(공급)
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="/kgpbt/writeform" class="nav-link <?=$menu_code=='003'?'active':''?>">
-							<i class=" nav-icon fas fa-chart-line"></i>
-							<p>
-								신뢰도 분석(생산)
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="/kgsbt/writeform" class="nav-link <?=$menu_code=='004'?'active':''?>">
-							<i class="nav-icon fas fa-chart-line"></i>
-							<p>
-								신뢰도 분석(공급)
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
-						</a>
-					</li>
-
-					<li class="nav-item">
-						<a href="/kgrct/kgrctlist" class="nav-link <?=$menu_code=='008'?'active':''?>">
-							<i class="nav-icon far fa-list-alt"></i>
-							<p>
-								분석 결과 조회
-								<!--								<span class="right badge badge-danger">New</span>-->
+								내구독정보
 							</p>
 						</a>
 					</li>
@@ -191,6 +118,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<a href="/console/mguser" class="nav-link <?=$menu_code=='009'?'active':''?>">
 									<i class="far fa-circle nav-icon"></i>
 									<p>사용자관리</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="/console/stibee" class="nav-link <?=$menu_code=='0013'?'active':''?>">
+									<i class="far fa-circle nav-icon"></i>
+									<p>구독자관리</p>
 								</a>
 							</li>
 							<li class="nav-item">

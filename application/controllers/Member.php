@@ -11,7 +11,7 @@ class Member extends CI_Controller {
         $this->load->helper('form');
         $this->load->helper('security');
         $this->load->helper('utility');
-
+		$this->load->library('pagination');
         $this->load->library('email');
         //기본 Data modal
         $this->load->model('common');
@@ -42,10 +42,10 @@ class Member extends CI_Controller {
 
     public function login(){
 
-    if(@$this->session->userdata('logged_in')) {
-        redirect('/', 'refresh');
-    }
-	$this->load->view('member/login');
+		if(@$this->session->userdata('logged_in')) {
+			redirect('/', 'refresh');
+		}
+		$this->load->view('member/login');
     }
 	//로그인 체크 콜백
     function login_check($password,$email){
@@ -55,21 +55,39 @@ class Member extends CI_Controller {
 			'password' => $password,
 		);
 		$result = $this->common->select_row('kguse',$sql='',$where );
-		$this->form_validation->set_message('login_check', '아이디 패스워드를 확인하세요.');
+
 		if($result==null){
+			$this->form_validation->set_message('login_check', '아이디 패스워드를 확인하세요.');
 			return false;
 		}else{
-			return true;
+			if($result->role=="guest"){
+				$this->form_validation->set_message('login_check', '회원가입 신청 대기 중입니다. 담당자에게 문의하세요');
+				return false;
+			}else{
+				return true;
+			}
 		}
+
 		return $result;
 	}
 	//이메일 중복체크 콜백
 	function email_check($email){
 		$result = $this->common->select_row('kguse','',array('email'=>$email));
-		$this->form_validation->set_message('email_check', '이미 등록된 이메일 주소입니다.');
+		$split = explode('@',$email);
+		/*
+		 * Email 입력시 @kogas.or.kr 형식으로만 가입 가능하도록
+			메시지 : 회사 이메일로 가입해야 합니다.
+		 */
+		if($split[1]=="kogas.or.kr"){
+			return true;
+		}else{
+			$this->form_validation->set_message('email_check', '회사 이메일로 가입해야 합니다.');
+			return false;
+		}
 		if($result==null){
 			return true;
 		}else{
+			$this->form_validation->set_message('email_check', '이미 등록된 이메일 주소입니다.');
 			return false;
 		}
 	}
@@ -77,38 +95,45 @@ class Member extends CI_Controller {
 	public function login_proc()
 	{
 		$email = $this->input->post('email', TRUE);
-			$this->form_validation->set_rules('email', '이메일', 'required|valid_email');
-			$this->form_validation->set_rules('password', '비밀번호','required|callback_login_check['.$email.']');
+		$this->form_validation->set_rules('email', '이메일', 'required|valid_email');
+		$this->form_validation->set_rules('password', '비밀번호','required|callback_login_check['.$email.']');
 
-			if ($this->form_validation->run() == TRUE) {
+		if ($this->form_validation->run() == TRUE) {
 			$where= array(
 				'email' => $email,
 			);
 			$result = $this->common->select_row('kguse',$sql='',$where );
-			//세션 생성
-			$newdata = array(
+			if($result->role != "guest"){
+				//세션 생성
+				$newdata = array(
 //                        'username' => $result->username,
-				'name' => $result->name,
-				'user_id'=> $result->id,
-				'logged_in' => TRUE,
-				'is_admin'=>FALSE,
-				'is_root'=>FALSE,
+					'name' => $result->name,
+					'user_id'=> $result->id,
+					'logged_in' => TRUE,
+					'is_admin'=>FALSE,
+					'is_root'=>FALSE,
+					'email'=>$email,
 //					'lang_cd'=>$this->input->post('lang_cd'),
-			);
-			if($result->role =="admin" || $result->role =="root"){
-				$newdata['is_admin']=TRUE;
-				if($result->role =="root"){
-					$newdata['is_root']=TRUE;
+				);
+				if($result->role =="admin" || $result->role =="root"){
+					$newdata['is_admin']=TRUE;
+					if($result->role =="root"){
+						$newdata['is_root']=TRUE;
+					}
 				}
+
+				$this->session->set_userdata($newdata);
+				$kguse_history_param=array(
+					'user_id'=>$result->id,
+					'log_data'=>'로그인',
+				);
+				$this->common->insert('kguse_history',$kguse_history_param);
+				redirect(site_url('/'));
+			}else{
+
+				return false;
 			}
 
-			$this->session->set_userdata($newdata);
-			$kguse_history_param=array(
-				'user_id'=>$result->id,
-				'log_data'=>'로그인',
-			);
-			$this->common->insert('kguse_history',$kguse_history_param);
-			redirect(site_url('/'));
 		}else{
 			$this->load->view('member/login');
 		}
@@ -295,4 +320,29 @@ class Member extends CI_Controller {
         }
         echo json_encode($data);
     }
+	//구독관리
+	public function mystibee()
+	{
+		$data=Array();
+		$data['page_title']="구독 현황";
+		$data['menu_code']="014";
+		$data['footerScript']='';
+		$email = @$this->session->userdata('email');
+		$where=array("email"=>$email);
+		//페이징
+		$config['base_url'] =base_url('member/mystibee');
+		$config['total_rows'] = $this->common->select_count('stibee_subscribers','',$where,'');
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+		$page = $this->uri->segment(3,0);
+		$data['pagination']= $this->pagination->create_links();
+		$limit[1]=$page;
+		$limit[0]=$config['per_page'];
+		$order_by=array('key'=>'createdTime','value'=>'desc');
+		$data["list"]=$this->common->select_list_table_result($table='stibee_subscribers',$sql="*,(select typename from kgref where kgref.typecolumn='status' and kgref.typecode=stibee_subscribers.status)as status_name",$where,$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+		$this->load->view('layout/header',$data);
+		$this->load->view('member/mystibee',$data);
+		$this->load->view('layout/footer',$data);
+	}
 }

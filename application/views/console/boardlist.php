@@ -15,10 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!--					<h5>업로드 필요한 자료가 있는 경우 관리자에게 요청해주십시오.</h5>-->
 					<ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link <?=$this->input->get("board_type")=="A"?"active":""?> " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true" onclick="location.href='/console/boardlist?board_type=A'">사용방법</a>
+							<a class="nav-link <?=$this->input->get("board_type")=="A"?"active":""?> " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true" onclick="location.href='/console/boardlist?board_type=A'">공지사항</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link <?=$this->input->get("board_type")=="B"?"active":""?>" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false" onclick="location.href='/console/boardlist?board_type=B'">신뢰성분석</a>
+							<a class="nav-link <?=$this->input->get("board_type")=="B"?"active":""?>" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false" onclick="location.href='/console/boardlist?board_type=B'">FAQ</a>
 						</li>
 					</ul>
 

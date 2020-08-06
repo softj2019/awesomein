@@ -34,15 +34,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var base_url ='<?=base_url()?>';
 	</script>
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page bg-white">
 <div class="login-box">
 	<div class="login-logo">
-<!--		<a href="../../index2.html"><b>한국도시가스</b></a>-->
-		<img src="/assets/dist/img/ci/top_logo.png" />
+		<img src="/assets/dist/img/ci/logo.png" class="w-100"/>
 	</div>
 	<!-- /.login-logo -->
 	<div class="card">
-		<div class="card-body login-card-body">
+		<div class="card-body login-card-body ">
 			<p class="login-box-msg login_title">로그인</p>
 			<?php
 			$attributes = array('class' => 'form-horizontal','id' => 'default_form','name' => 'default_form');
@@ -51,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 				<div class="input-group mb-3">
-					<input type="email" class="form-control" name="email" placeholder="회사 이메일" value="<?php echo set_value('email'); ?>">
+					<input type="email" class="form-control" name="email" placeholder="이메일" value="<?php echo set_value('email'); ?>">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-envelope"></span>
@@ -83,36 +82,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--					</div>-->
 					<!-- /.col -->
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary btn-block">로그인</button>
+						<button type="submit" class="btn btn-default btn-block">로그인</button>
 					</div>
 					<!-- /.col -->
 				</div>
 			<?php
 				echo form_close();
 			?>
-
-<!--			<div class="social-auth-links text-center mb-3">-->
-<!--				<p>- OR -</p>-->
-<!--				<a href="#" class="btn btn-block btn-primary">-->
-<!--					<i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
-<!--				</a>-->
-<!--				<a href="#" class="btn btn-block btn-danger">-->
-<!--					<i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
-<!--				</a>-->
-<!--			</div>-->
-			<!-- /.social-auth-links -->
-			<p>&nbsp;</p>
-			<p class="mb-1">
-<!--				<a href="/member/passwordfind" class="pw_find">비밀번호 찾기</a>-->
-				<a href="/member/join" class="join">회원가입</a>
-
-			</p>
-			<p class="mb-1">
-				처음 방문시 회원가입을 해주세요.
-			</p>
 		</div>
+
 		<!-- /.login-card-body -->
 	</div>
+	<button type="button" class="btn kko-login-btn"><i class="kko-ic"></i>Kakao 계정으로 로그인</button>
 </div>
 
 <!-- PAGE SCRIPTS -->
@@ -157,6 +138,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		beforeHide: function () {}, // will be triggered before the toast gets hidden
 		afterHidden: function () {}  // will be triggered after the toast has been hidden
 	};
+	$('.kko-login-btn').click(function () {
+		window.open('https://kauth.kakao.com/oauth/authorize?client_id=a0c10d1fa237662ef92188216ee55180&redirect_uri=<?=base_url('/oauth')?>&response_type=code','','width=750, height=900');
+	});
+
 </script>
 
 <?php

@@ -132,5 +132,71 @@ body {
 [class*="icheck-"] > input:first-child {
 	display: none!important;
 }
+#exampleModalLabel {
+	width: 100%;
+}
 
+#test {
+	float: right;
+}
 
+/*@media print*/
+/*{*/
+/*	body > **/
+/*	{*/
+/*		display: none !important;*/
+/*	}*/
+
+/*	body > #default-modal .modal-body*/
+/*	{*/
+/*		display: block !important;*/
+/*		position: relative !important;*/
+/*		top: auto !important;*/
+/*		left: auto !important;*/
+/*		width: auto !important;*/
+/*		height: auto !important;*/
+/*		border-width: 0;*/
+/*		box-shadow: none !important;*/
+/*	}*/
+
+/*}*/
+.kko-login-btn{
+	display:block;
+	margin:0 auto;
+	width:300px;
+	height:60px;
+	color:#000;
+	background:#ffe500;
+	font-size: 16px;
+}
+.kko-ic{
+	display: inline-block;
+	margin-right:5px;
+	margin-bottom:-2px;
+	width:16px;
+	height:16px;
+	background:url(/assets/dist/img/kakao1.png) center center / 16px;
+}
+.product-image{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.product-image-thumb{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
+body {
+	margin: 0;
+	/*font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";*/
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.footer-right-section ul {
+	font-size: 14px;
+	line-height: 22px;
+}
+li {
+	list-style: none!important;
+}

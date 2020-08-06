@@ -18,9 +18,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<footer class="main-footer">
 		<!-- To the right -->
 		<div class="float-right d-none d-sm-inline">
+<!--			123-->
 		</div>
 		<!-- Default to the left -->
-		<strong>KOGAS 설비 신뢰도 분석 시스템 by Minitab </strong>
+<!--		<strong>주식회사 어썸인 <span class="mobile-hide">|</span>  사업자등록번호:585-87-01608 <span class="mobile-hide">|</span> 고객센터 : 010-3484-3477</strong>-->
+		<ul>
+			<li>상호 : 주식회사 어썸인 / 대표 : 성선환 / 전화번호 : 010-3484-3477</li>
+			<li>사업자등록번호 : [585-87-01608]</li>
+<!--			<li>통신판매업신고 2019-서울서초-0844 <a href="javascript:void(0)" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=4878801223','_blank','width=750, height=900');">[사업자정보확인]</a></li>-->
+			<li>주소 : 서울특별시 서초구 강남대로 51길 10, 비1층 106-218</li>
+			<li>개인정보관리책임자 : <a href="mailto:alloga@naver.com">성선화</a></li>
+
+		</ul>
 	</footer>
 </div>
 <div class="modal fade" id="modal-user">
@@ -74,58 +83,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id="modal-adview">
-	<div class="modal-dialog modal-xl">
+<div class="modal fade" id="modal-fom-subscribers">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">적합도</h4>
-				<!--				<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-				<!--					<span aria-hidden="true">&times;</span>-->
-				<!--				</button>-->
-			</div>
-			<div class="modal-body row">
-
-			</div>
-			<div class="modal-footer justify-content-right">
-				<button type="button" class="btn btn-default" id="requestAdRun">분석실행</button>
-
-			</div>
-			<div class="modal-body">
-				<div class="card collapsed-card">
-					<div class="card-header">
-						<h3 class="card-title"> 상세보기</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-							</button>
-							<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-							</button>
-						</div>
-
-					</div>
-					<div class="card-body">
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="modal-kgartRunView">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">분석 실행 정보</h4>
+				<h4 class="modal-title">구독 주소록 추가</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body row">
+			<div class="modal-body">
+				<?php
+				$attributes = array('class' => 'form-horizonatal', 'id' => 'addFormSubscribers','name' => 'addFormSubscribers');
+				echo form_open('',$attributes);
+				?>
 
+				<div class="form-group">
+					<div>
+						<input type="text" name="email" placeholder="email" class="form-control">
+					</div>
+					<p class="text-danger password">
+						&nbsp;
+					</p>
+				</div>
+				<div class="form-group">
+					<div>
+						<input type="text" name="name" placeholder="구독자이름" class="form-control">
+					</div>
+					<p class="text-danger new_password">
+						&nbsp;
+					</p>
+
+				</div>
+				<?php echo form_close();?>
 			</div>
-			<div class="modal-footer justify-content-right">
-				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-primary addBtnSubscribers">등록 요청</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -154,6 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript" src="/assets/plugins/moment/moment.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/moment/locale/ko.js"></script>
 <script type="text/javascript" src="/assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/assets/dist/js/jquery.inputmask.min.js"></script><!--inputmask 사용 시 포함-->
 
 <script src="/assets/plugins/summernote/summernote-bs4.js"></script>
 <script src="/assets/dist/js/summernote-ko-KR.js"></script>

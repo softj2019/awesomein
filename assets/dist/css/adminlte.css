@@ -20503,6 +20503,8 @@ html.maximized-card {
   max-width: 100%;
   height: auto;
   width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .product-image-thumbs {

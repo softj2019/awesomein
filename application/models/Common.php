@@ -91,22 +91,28 @@ class Common extends CI_Model
 		$val = end($array);
 		return array(array_search($val, $array) => $val);
 	}
-    function insert_on_dup($table,$param){
+    function insert_on_dup($table,$param,$dup_key="br_cd"){
 		$dupValue='';
 		foreach($param as $key=>$value){
 			$dupValue .=$key."='".$value."'";
-			if('br_cd' != $key) $dupValue.=", ";
+			if($dup_key != $key) $dupValue.=", ";
 		}
 
 		$sql = $this->db->insert_string($table, $param) . ' ON DUPLICATE KEY UPDATE ' .$dupValue;
 
 		$this->db->query($sql);
 	}
+
     function update_row($table='',$param='',$pid_key='',$pid_value='')
     {
         $this->db->where($pid_key, $pid_value);
         return $this->db->update($table, $param);
     }
+	function update_rows($table='',$param='',$where)
+	{
+		$this->db->where($where);
+		return $this->db->update($table, $param);
+	}
 	function update_c($table='',$param='',$where='')
 	{
 		$this->db->where($where);
