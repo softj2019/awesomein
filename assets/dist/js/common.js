@@ -1775,7 +1775,7 @@ $('.getStibee').on("click",function () {
 		data:$('#defaultForm').serialize(),
 		dataType: "json",
 		success: function (data) {
-			location.reload();
+
 		},
 		beforeSend: function(data){
 			//진행중
@@ -1784,6 +1784,8 @@ $('.getStibee').on("click",function () {
 		complete: function(data){
 			// TODO
 			$('.loading-bar-wrap').addClass("hidden");
+
+			location.href='/console/stibee';
 		},
 		error: function (xhr, status, error) {
 			//console.log(error,xhr,status );

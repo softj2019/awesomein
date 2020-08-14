@@ -54,6 +54,7 @@ class Payment extends CI_Controller
 		$url = 'https://api.testpayup.co.kr/v2/api/payment/'.$merchantId.'/keyin2';
 		$signature = hash ( "sha256", $merchantId."|".$paymentRow->orderNumber."|".$this->input->post("amount")."|".$apiKey."|".$timestamp);
 		$param=array(
+			"user_id"=>@$this->session->userdata('user_id'),
 			"orderNumber"=>$paymentRow->orderNumber,
 			"cardNo"=>$this->input->post("cardNo"),
 			"expireMonth"=>$this->input->post("expireMonth"),
@@ -86,6 +87,8 @@ class Payment extends CI_Controller
 					array(
 						"email" => $this->input->post("userEmail"),
 						"name" => $this->input->post("userName"),
+						"kakaoid" => @$this->session->userdata('user_id'),
+						"orderNumber" => $paymentRow->orderNumber,
 					)
 				),
 			);
@@ -96,6 +99,7 @@ class Payment extends CI_Controller
 			$param["responseCode"]=$payupResult->responseCode;
 			$param["responseMsg"]=$payupResult->responseMsg;
 			$this->common->insert("payment",$param);
+			redirect(base_url('member/mystibee'));
 
 		}else{
 			$this->load->view('layout/header',$data);

@@ -542,11 +542,13 @@ class Console  extends CI_Controller
 		if($list->Ok){
 			foreach ($list->Value as $item) {
 				$param=array(
-
+					"listId"=>$listid,
 					"name"=>$item->name,
 					"status"=>$item->status,
 					"createdTime"=>$item->createdTime,
 					"modifiedTime"=>$item->modifiedTime,
+					"user_id"=>$item->kakaoid,
+					"orderNumber"=>$item->orderNumber,
 					"email"=>$item->email,
 				);
 				$this->common->insert_on_dup('stibee_subscribers',$param,$dup_key='email');
@@ -571,8 +573,9 @@ class Console  extends CI_Controller
 		$data['pagination']= $this->pagination->create_links();
 		$limit[1]=$page;
 		$limit[0]=$config['per_page'];
-		$order_by=array('key'=>'createdTime','value'=>'desc');
+		$order_by=array('key'=>'A.createdTime','value'=>'desc');
 		$sql="*," .
+			"(select Z.email from kguse Z where Z.user_id=A.user_id) as user_email," .
 			"(select Z.typename from kgref Z where Z.typecolumn='status' and Z.typecode=A.status)as status_name," .
 			"(select Z.amount from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as amount," .
 			"(select Z.reg_date from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as payment_reg_date" .

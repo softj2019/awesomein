@@ -115,6 +115,7 @@ body {
 	/*text-decoration: underline;*/
 	font-weight: 900;
 	color: #444444;
+	font-size: 18px;
 }
 .w-5{
 	width: 5% !important;
@@ -163,7 +164,7 @@ body {
 .kko-login-btn{
 	display:block;
 	margin:0 auto;
-	width:300px;
+	width:100%;
 	height:60px;
 	color:#000;
 	background:#ffe500;
@@ -199,4 +200,10 @@ body {
 }
 li {
 	list-style: none!important;
+}
+.input-group input.form-control{
+	height: calc(2.70rem + 2px) !important;
+}
+.col-12 .btn{
+	padding: 0.9rem .75rem;
 }

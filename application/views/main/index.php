@@ -82,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 								<div class="card-body">
 									<div class="form-group row">
-										<label for="inputEmail3" class="col-sm-2 col-form-label">이름</label>
+										<label for="inputEmail3" class="col-sm-2 col-form-label">이름 <span class="text-danger">*</span> </label>
 										<div class="col-sm-10">
 											<input type="text" name="userName" class="form-control" id="inputEmail3" placeholder="이름">
 										</div>
@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="inputPassword3" class="col-sm-2 col-form-label">이메일</label>
+										<label for="inputPassword3" class="col-sm-2 col-form-label">구독메일 <span class="text-danger">*</span></label>
 										<div class="col-sm-10">
 											<input type="email" name="userEmail"  class="form-control" id="inputPassword3" placeholder="이메일">
 										</div>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="" class="col-sm-2 col-form-label">전화번호</label>
+										<label for="" class="col-sm-2 col-form-label">전화번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-10">
 											<input type="text" name="mobileNumber"  class="form-control" id="" placeholder="전화번호">
 										</div>
@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="" class="col-sm-2 col-form-label">생년월일</label>
+										<label for="" class="col-sm-2 col-form-label">생년월일 <span class="text-danger">*</span></label>
 										<div class="col-sm-10">
 											<input type="number" name="birthday"  class="form-control" id="" placeholder="1990.01.10 = 900110">
 										</div>
@@ -117,8 +117,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<?php echo form_error('birthday'); ?>
 										</div>
 									</div>
+									<hr>
+									<h4 class="mt-3">결제정보 <small></small></h4>
 									<div class="form-group row">
-										<label for="" class="col-sm-2 col-form-label">카드번호</label>
+										<label for="" class="col-sm-2 col-form-label">카드번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-10">
 											<input type="number" name="cardNo"  class="form-control" id="" placeholder="카드번호">
 										</div>
@@ -127,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="" class="col-sm-2 col-form-label">유효기간</label>
+										<label for="" class="col-sm-2 col-form-label">유효기간 <span class="text-danger">*</span></label>
 										<div class="col-sm-5">
 											<input type="number" name="expireMonth"  class="form-control" id="" placeholder="월">
 										</div>
@@ -142,11 +144,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="" class="col-sm-2 col-form-label">비밀번호</label>
+										<label for="" class="col-sm-2 col-form-label">비밀번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-5">
 											<input type="number" name="cardPw"  class="form-control" id="" placeholder="앞 두자리">
 										</div>
-										<label for="" class="col-sm-2 col-form-label">할부개월</label>
+										<label for="" class="col-sm-2 col-form-label">할부개월 <span class="text-danger">*</span></label>
 										<div class="col-sm-3">
 											<input type="number" name="quota"  class="form-control" id="" placeholder="">
 										</div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class stibee_api
+class Stibee_api
 {
  	function StibeeRestFul($method="",$url="",$data=array()){
 		//인증토큰

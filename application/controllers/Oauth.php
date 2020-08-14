@@ -15,6 +15,7 @@ class Oauth extends CI_Controller {
         $this->load->library('email');
         //기본 Data modal
         $this->load->model('common');
+		$this->load->library('stibee_api');
     }
 
 
@@ -46,12 +47,13 @@ class Oauth extends CI_Controller {
 		$result = $this->kakao_login->get_profile();
 		if($result["id"]){
 			//세션 생성
+			$email =$result["kakao_account"]["email"];
 			$newdata = array(
 //                        'username' => $result->username,
 //				'name' => $result->name,
 				'user_id'=> $result["id"],
 				'logged_in' => TRUE,
-				'email' =>$result["kakao_account"]["email"],
+				'email' =>$email,
 //				'is_admin'=>FALSE,
 //				'is_root'=>FALSE,
 //					'lang_cd'=>$this->input->post('lang_cd'),
@@ -59,9 +61,23 @@ class Oauth extends CI_Controller {
 
 
 			$this->session->set_userdata($newdata);
+			//있으면 업데이트 없으면 insert
+
+			$userDataResult = $this->common->select_row('kguse','',array('email'=>$email));
+			if($userDataResult)$historyValue='로그인';
+			if(!$userDataResult)$historyValue='회원가입';
+			$param = array(
+				//dup key 를 제일 마지막으로둔다
+
+				'email' => $email,
+				'user_id'=>$result["id"],
+			);
+			$this->common->insert_on_dup('kguse',$param,$dup_key='user_id');
+
+
 			$kguse_history_param=array(
 				'user_id'=>$result["id"],
-				'log_data'=>'로그인',
+				'log_data'=>$historyValue,
 			);
 			$this->common->insert('kguse_history',$kguse_history_param);
 
@@ -71,6 +87,47 @@ class Oauth extends CI_Controller {
 	}
 	public function stibeewebhook()
 	{
+		header('Content-type: application/json; charset=utf-8');
+		/*
+		 	"SUBSCRIBED": 구독
+			"UPDATED": 구독자 정보 변경
+			“UNSUBSCRIBED”: 수신거부
+			“RESUBSCRIBED”: 수신거부 취소
+			“DELETED”: 자동삭제
+			“PURGED”: 완전삭제
+		 * */
+		$json_params = json_decode(file_get_contents("php://input"));
+		log_message('debug',$json_params->id);
+		log_message('debug',$json_params->action);
+		log_message('debug',$json_params->eventOccuredBy);
+		foreach ($json_params->subscribers[0] as $key=>$value){
+			log_message('debug',$key.'->'.$value);
+		}
 
+		//스티비 요청 URL
+		$url ="https://api.stibee.com/v1/lists/".$json_params->id."/subscribers";
+		$response = $this->stibee_api->StibeeRestFul("GET",$url);
+		$list = json_decode($response);
+		if($json_params->action == 'PURGED' || $json_params->action == 'DELETED' ){
+
+			foreach ($json_params->subscribers[0] as $key=>$value){
+				$this->common->delete_row('stibee_subscribers',array("email"=>$value,'listId'=>$json_params->id));
+			}
+		}
+		if($list->Ok){
+			foreach ($list->Value as $item) {
+				$param=array(
+					"listId"=>$json_params->id,
+					"name"=>$item->name,
+					"status"=>$item->status,
+					"createdTime"=>$item->createdTime,
+					"modifiedTime"=>$item->modifiedTime,
+					"user_id"=>$item->kakaoid,
+					"orderNumber"=>$item->orderNumber,
+					"email"=>$item->email,
+				);
+				$this->common->insert_on_dup('stibee_subscribers',$param,$dup_key='email');
+			}
+		}
 	}
 }
