@@ -368,6 +368,15 @@ function callToast(text,icon,heading) {
 		loaderBg: '#ffffff',  // Background color of the toast loader
 	});
 }
+function callToastMidCenter(text,icon,heading) {
+	$.toast({
+		position: 'mid-center',
+		heading:heading,
+		text: text,
+		icon: icon,
+		loaderBg: '#ffffff',  // Background color of the toast loader
+	});
+}
 function callToastHideAfter(text,icon,heading,data,bsmodal){
 	if(data.alerts_status=="success"){
 		$.toast({
@@ -1400,7 +1409,7 @@ function uploadSummernoteImageFile(file, editor) {
 		contentType : false,
 		processData : false,
 		success : function(data) {
-			//console.log(data)
+			console.log(data)
 			//항상 업로드된 파일의 url이 있어야 한다.
 			$(editor).summernote('insertImage', base_url+'assets/editor/'+data.imgData.file_name);
 		}
@@ -1914,6 +1923,10 @@ $('#unSubscribe').on("click",function () {
 			//console.log(error,xhr,status );
 		}
 	});
+});
+
+$('#kko-login-btn').click(function () {
+	window.open('https://kauth.kakao.com/oauth/authorize?client_id=a0c10d1fa237662ef92188216ee55180&redirect_uri='+base_url+'oauth&response_type=code','','width=750, height=900');
 });
 
 

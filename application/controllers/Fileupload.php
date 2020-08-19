@@ -1,7 +1,7 @@
 <?php
 
 
-class fileupload extends CI_Controller
+class Fileupload extends CI_Controller
 {
 	function __construct()
 	{

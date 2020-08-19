@@ -120,7 +120,7 @@ class Console  extends CI_Controller
 		if(!$type){
 			$type = "A";
 		}
-		$data['page_title']="도움말 관리";
+		$data['page_title']="게시판 관리";
 //		$data['page_sub_title']="";
 //        $data['page_css_style']="fee.css";
 		$data['menu_code']="012";
@@ -161,7 +161,7 @@ class Console  extends CI_Controller
 	public function boardform()
 	{
 		$data=Array();
-		$data['page_title']="도움말 글쓰기";
+		$data['page_title']="게시판 글쓰기";
 		$data['menu_code']="012";
 		$data['footerScript']='/assets/dist/js/summernote-basic.js';
 		$data['board_type']=$this->input->get("board_type");
@@ -175,7 +175,7 @@ class Console  extends CI_Controller
 	public function boardread()
 	{
 		$data=Array();
-		$data['page_title']="도움말 글수정";
+		$data['page_title']="게시판 글수정";
 		$data['menu_code']="012";
 		$data['footerScript']='/assets/dist/js/summernote-basic.js';
 		$where=array(

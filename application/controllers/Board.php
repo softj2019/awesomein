@@ -29,14 +29,11 @@ class Board  extends CI_Controller
     }
 	public function _remap($method)
 	{
-		$data=Array();
-		if(!@$this->session->userdata('logged_in')) {
-			redirect('member/login');
-		}else{
-			if (method_exists($this, $method)) {
-				$this->{"{$method}"}();
-			}
+
+		if (method_exists($this, $method)) {
+			$this->{"{$method}"}();
 		}
+
 	}
     public function boardlist()
     {
@@ -47,7 +44,7 @@ class Board  extends CI_Controller
 		if(!$type){
 			$type = "A";
 		}
-		$data['page_title']="도움말";
+		$data['page_title']="지난레터보기";
 //		$data['page_sub_title']="";
 //        $data['page_css_style']="fee.css";
 		$data['menu_code']="010";
@@ -68,15 +65,15 @@ class Board  extends CI_Controller
 		$data["list"]= $this->common->select_list_table_result('board a,(select (@rownum:=0) = 0) tmp',$sql='(@rownum:=@rownum+1) as num,a.*,(select kguse.name from kguse where kguse.id = a.user_id) as name',array('type'=>$type),$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
 //		$data["list"]= $this->common->select_list_table_result('board',$sql='board.*,(select kguse.name from kguse where kguse.id = board.user_id) as name',array('type'=>$type),$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
 
-		$this->load->view('layout/header',$data);
+		$this->load->view('layout/topnavstyle/header',$data);
         $this->load->view('board/boardlist',$data);
-		$this->load->view('layout/footer',$data);
+		$this->load->view('layout/topnavstyle/footer',$data);
     }
 
 	public function boardread()
 	{
 		$data=Array();
-		$data['page_title']="도움말";
+		$data['page_title']="지난레터보기";
 		$data['menu_code']="010";
 
 		$where=array(
@@ -94,8 +91,8 @@ class Board  extends CI_Controller
 
 		$data['boardFileList']=$this->common->select_list_table_result('boardfile','',array('br_cd'=>$boardRow->br_cd),$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit='');
 		//에디터 에 내용전달
-		$this->load->view('layout/header',$data);
+		$this->load->view('layout/topnavstyle/header',$data);
 		$this->load->view('board/boardform',$data);
-		$this->load->view('layout/footer',$data);
+		$this->load->view('layout/topnavstyle/footer',$data);
 	}
 }

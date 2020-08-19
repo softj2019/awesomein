@@ -88,68 +88,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						</a>
 					</li>
 					<?php }?>
-					<li class="nav-item">
-						<a href="/" class="nav-link <?=$menu_code=='001'?'active':''?>">
-							<i class="nav-icon fas fa-mail-bulk"></i>
-							<p>
-								구독신청
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="/member/mystibee" class="nav-link <?=$menu_code=='014'?'active':''?>">
-							<i class="nav-icon fas fa-envelope-open-text"></i>
-							<p>
-								내구독정보
-							</p>
-						</a>
-					</li>
+
 					<?php if(@$this->session->userdata('is_admin')) {?>
-					<li class="nav-item <?=$menu_code=='009' || $menu_code=='011'|| $menu_code=='012'?'menu-open':''?>">
-						<a href="" class="nav-link <?=$menu_code=='009' || $menu_code=='011' ||  $menu_code=='012'?'active':''?>">
-							<i class="nav-icon fas fa-cogs"></i>
-							<p>
-								관리자 메뉴
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="/console/mguser" class="nav-link <?=$menu_code=='009'?'active':''?>">
-									<i class="far fa-circle nav-icon"></i>
-									<p>사용자관리</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="/console/stibee" class="nav-link <?=$menu_code=='0013'?'active':''?>">
-									<i class="far fa-circle nav-icon"></i>
-									<p>구독자관리</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="/console/loginhistory" class="nav-link <?=$menu_code=='011'?'active':''?>" >
-									<i class="far fa-circle nav-icon"></i>
-									<p>로그인 이력</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="/console/boardlist?board_type=A" class="nav-link <?=$menu_code=='012'?'active':''?>" >
-									<i class="far fa-circle nav-icon"></i>
-									<p>도움말 관리</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<?php } ?>
+
 					<li class="nav-item">
-						<a href="/board/boardlist?board_type=A" class="nav-link <?=$menu_code=='010'?'active':''?>">
-							<i class="nav-icon fab fa-hire-a-helper"></i>
-							<p>
-								도움말
-								<!--								<span class="right badge badge-danger">New</span>-->
-							</p>
+						<a href="/console/mguser" class="nav-link <?=$menu_code=='009'?'active':''?>">
+							<i class="far fa-circle nav-icon"></i>
+							<p>사용자관리</p>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="/console/stibee" class="nav-link <?=$menu_code=='0013'?'active':''?>">
+							<i class="far fa-circle nav-icon"></i>
+							<p>구독자관리</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/console/loginhistory" class="nav-link <?=$menu_code=='011'?'active':''?>" >
+							<i class="far fa-circle nav-icon"></i>
+							<p>로그인 이력</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/console/boardlist?board_type=A" class="nav-link <?=$menu_code=='012'?'active':''?>" >
+							<i class="far fa-circle nav-icon"></i>
+							<p>게시판 관리</p>
+						</a>
+					</li>
+
+					<?php } ?>
+
 				</ul>
 			</nav>
 			<!-- /.sidebar-menu -->

@@ -20332,7 +20332,9 @@ html.maximized-card {
   justify-content: center;
 }
 
-.login-box,
+.login-box{
+  width: 400px;
+}
 .register-box {
   width: 360px;
 }

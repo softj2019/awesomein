@@ -23,11 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!-- Default to the left -->
 <!--		<strong>주식회사 어썸인 <span class="mobile-hide">|</span>  사업자등록번호:585-87-01608 <span class="mobile-hide">|</span> 고객센터 : 010-3484-3477</strong>-->
 		<ul>
-			<li>상호 : 주식회사 어썸인 / 대표 : 성선환 / 전화번호 : 010-3484-3477</li>
+			<li>상호 : 주식회사 어썸인 / 대표 : 성선화/ 전화번호 : 010-3484-3477</li>
 			<li>사업자등록번호 : [585-87-01608]</li>
 <!--			<li>통신판매업신고 2019-서울서초-0844 <a href="javascript:void(0)" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=4878801223','_blank','width=750, height=900');">[사업자정보확인]</a></li>-->
 			<li>주소 : 서울특별시 서초구 강남대로 51길 10, 비1층 106-218</li>
-			<li>개인정보관리책임자 : <a href="mailto:alloga@naver.com">성선화</a></li>
+			<li>개인정보관리책임자 : <a href="mailto:alloga@naver.com">성선화 < alloga@naver.com ></a></li>
 
 		</ul>
 	</footer>

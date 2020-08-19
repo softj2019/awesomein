@@ -36,9 +36,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition login-page bg-white">
 <div class="login-box">
-	<div class="login-logo">
+	<a href ="/" class="login-logo">
 		<img src="/assets/dist/img/ci/logo.png" class="w-100"/>
-	</div>
+	</a>
 	<!-- /.login-logo -->
 	<div class="card">
 		<div class="card-body login-card-body ">
@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 		<!-- /.login-card-body -->
 	</div>
-	<button type="button" class="btn kko-login-btn"><i class="kko-ic"></i>Kakao 계정으로 로그인</button>
+	<button type="button" class="btn kko-login-btn" id="kko-login-btn"><i class="kko-ic"></i>Kakao 계정으로 로그인</button>
 </div>
 
 <!-- PAGE SCRIPTS -->
@@ -138,9 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		beforeHide: function () {}, // will be triggered before the toast gets hidden
 		afterHidden: function () {}  // will be triggered after the toast has been hidden
 	};
-	$('.kko-login-btn').click(function () {
-		window.open('https://kauth.kakao.com/oauth/authorize?client_id=a0c10d1fa237662ef92188216ee55180&redirect_uri=<?=base_url('/oauth')?>&response_type=code','','width=750, height=900');
-	});
+
 
 </script>
 
