@@ -79,12 +79,12 @@ class Member extends CI_Controller {
 		 * Email 입력시 @kogas.or.kr 형식으로만 가입 가능하도록
 			메시지 : 회사 이메일로 가입해야 합니다.
 		 */
-		if($split[1]=="kogas.or.kr"){
-			return true;
-		}else{
-			$this->form_validation->set_message('email_check', '회사 이메일로 가입해야 합니다.');
-			return false;
-		}
+//		if($split[1]=="kogas.or.kr"){
+//			return true;
+//		}else{
+//			$this->form_validation->set_message('email_check', '회사 이메일로 가입해야 합니다.');
+//			return false;
+//		}
 		if($result==null){
 			return true;
 		}else{
@@ -171,10 +171,13 @@ class Member extends CI_Controller {
 		$this->form_validation->set_rules('email', 'email', 'required|callback_email_check');
 
         if ($this->form_validation->run() == TRUE) {
+			$random_result =0;
+			foreach (random(1, 9, 9) as $v) $random_result .= $v;
 			$param = array(
 				'email' => $this->input->post('email', TRUE),
 				'name' => $this->input->post('name', TRUE),
 				'password' => do_hash($this->input->post('password', TRUE),'sha1'),
+
 			);
 			$this->common->insert('kguse',$param);
 			$user_row = $this->common->select_row($table='kguse',$sql='',$where=array('email'=>$this->input->post('email', TRUE)),$coding=true,$order_by='',$group_by='',$like='' );

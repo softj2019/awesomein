@@ -115,6 +115,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<?php echo form_error('userEmail'); ?>
 										</div>
 									</div>
+<!--									<div class="form-group row mt-1">-->
+<!--										<label for="" class="col-sm-3 col-form-label">비밀번호 <span class="text-danger">*</span></label>-->
+<!--										<div class="col-sm-9">-->
+<!--											<input type="password" name="password"  class="form-control" id="" placeholder="비밀번호">-->
+<!--										</div>-->
+<!--										<div class="col-sm-9 offset-sm-3">-->
+<!--											<p>구독확인용비밀번호</p>-->
+<!--											--><?php //echo form_error('password'); ?>
+<!--										</div>-->
+<!--									</div>-->
 									<div class="form-group row mt-1">
 										<label for="" class="col-sm-3 col-form-label">전화번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-9">

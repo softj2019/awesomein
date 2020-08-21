@@ -68,5 +68,33 @@ class Main  extends CI_Controller
 
 		$this->load->view('layout/menu',$data);
 	}
+	public function about()
+	{
+		$data=Array();
+		//사용자 정보
+
+
+		$data['page_title']="ABOUT";
+		$data['menu_code']="016";
+
+
+		//페이징 base_url '컨트롤러명/컨트롤러안의 함수명
+		$config['base_url'] =base_url('main/about');
+//		$config['total_rows'] = $this->common->select_count('kgart','','');
+//		$config['per_page'] = 10;
+
+//		$this->pagination->initialize($config);
+//		$page = $this->uri->segment(3,0);
+//		$data['pagination']= $this->pagination->create_links();
+//		$limit[1]=$page;
+//		$limit[0]=$config['per_page'];
+
+		//기본목록
+
+		$this->load->view('layout/topnavstyle/header',$data);
+		$this->load->view('main/about',$data);
+		$this->load->view('layout/topnavstyle/footer',$data);
+	}
+
 
 }

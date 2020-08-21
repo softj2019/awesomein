@@ -19,8 +19,13 @@ class product extends CI_Controller
 	public function _remap($method)
 	{
 
-		if (method_exists($this, $method)) {
-			$this->{"{$method}"}();
+		if(!@$this->session->userdata('logged_in')) {
+			modal_alert('로그인 후 이용가능합니다.','member/login',$this);
+			redirect('member/login');
+		}else{
+			if (method_exists($this, $method)) {
+				$this->{"{$method}"}();
+			}
 		}
 
 	}

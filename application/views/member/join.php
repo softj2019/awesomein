@@ -34,23 +34,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var base_url ='<?=base_url()?>';
 	</script>
 </head>
-<body class="hold-transition login-page bg-white">
+<body class="hold-transition login-page">
 <div class="login-box">
-	<a href ="/" class="login-logo">
-		<img src="/assets/dist/img/ci/logo.png" class="w-100"/>
-	</a>
+	<div class="login-logo">
+		<a href ="/" class="login-logo">
+			<img src="/assets/dist/img/ci/logo.png" class="w-100"/>
+		</a>
+	</div>
 	<!-- /.login-logo -->
 	<div class="card">
-		<div class="card-body login-card-body ">
-			<p class="login-box-msg login_title">로그인</p>
+		<div class="card-body login-card-body">
+			<p class="login-box-msg login_title">회원가입</p>
 			<?php
 			$attributes = array('class' => 'form-horizontal','id' => 'default_form','name' => 'default_form');
-			echo form_open('/member/login_proc', $attributes);
+			echo form_open('/member/join_proc', $attributes);
 			?>
 
 
 				<div class="input-group mb-3">
-					<input type="email" class="form-control" name="email" placeholder="이메일" value="<?php echo set_value('email'); ?>">
+					<input type="email"  name="email" class="form-control" placeholder="이메일" value="<?php echo set_value('email'); ?>">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-envelope"></span>
@@ -61,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<?php echo form_error('email'); ?>
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="password" placeholder="비밀번호">
+					<input type="password" name="password" class="form-control" placeholder="비밀번호">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-lock"></span>
@@ -71,29 +73,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="input-group mb-3">
 					<?php echo form_error('password'); ?>
 				</div>
-				<div class="row">
-<!--					<div class="col-8">-->
-<!--						<div class="icheck-primary">-->
-<!--							<input type="checkbox" id="remember">-->
-<!--							<label for="remember">-->
-<!--								Remember Me-->
-<!--							</label>-->
-<!--						</div>-->
-<!--					</div>-->
-					<!-- /.col -->
-					<div class="col-12">
-						<button type="submit" class="btn btn-info btn-block">로그인</button><a href="/member/join" class="btn btn-default btn-block">회원가입</a>
+				<div class="input-group mb-3">
+					<input type="password" name="password_proc"  class="form-control" placeholder="비밀번호확인">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock"></span>
+						</div>
 					</div>
-					<!-- /.col -->
+				</div>
+				<div class="input-group mb-3">
+					<?php echo form_error('password_proc'); ?>
+				</div>
+				<div class="input-group mb-3">
+					<input type="text"  name="name" class="form-control" placeholder="사용자명" value="<?php echo set_value('name'); ?>">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-address-card"></span>
+						</div>
+					</div>
+				</div>
+				<div class="input-group mb-3">
+					<?php echo form_error('name'); ?>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary btn-block">회원가입</button>
+					</div>
 				</div>
 			<?php
 				echo form_close();
 			?>
+
+<!--			<div class="social-auth-links text-center mb-3">-->
+<!--				<p>- OR -</p>-->
+<!--				<a href="#" class="btn btn-block btn-primary">-->
+<!--					<i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
+<!--				</a>-->
+<!--				<a href="#" class="btn btn-block btn-danger">-->
+<!--					<i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
+<!--				</a>-->
+<!--			</div>-->
+			<!-- /.social-auth-links -->
+			<p>&nbsp;</p>
+			<div class="row">
+				<div class="col-12">
+					<button class="btn btn-block btn-outline-primary" onclick="location.href='/member/login'">로그인</button>
+				</div>
+			</div>
+
+<!--			<p class="mb-1">-->
+<!--				<a href="/member/login" class="join">로그인</a>-->
+<!--			</p>-->
+			<p>&nbsp;</p>
+<!--			<ul class="mb-1 list-unstyled">-->
+<!--				<li>계정승인은 관리자에게문의 주십시오-->
+<!--					<ul>-->
+<!--						<li>단승규 031-400-7505</li>-->
+<!--						<li>정호진 031-400-7561</li>-->
+<!--						<li>윤익근 031-400-7544</li>-->
+<!--					</ul>-->
+<!--				</li>-->
+<!--			</ul>-->
 		</div>
 
 		<!-- /.login-card-body -->
 	</div>
-	<button type="button" class="btn kko-login-btn" id="kko-login-btn"><i class="kko-ic"></i>Kakao 계정으로 로그인</button>
+	<button type="button" class="btn kko-login-btn" id="kko-login-btn"><i class="kko-ic"></i>Kakao 계정으로 회원가입</button>
 </div>
 
 <!-- PAGE SCRIPTS -->
@@ -138,8 +183,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		beforeHide: function () {}, // will be triggered before the toast gets hidden
 		afterHidden: function () {}  // will be triggered after the toast has been hidden
 	};
-
-
 </script>
 
 <?php

@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<!-- Left navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="/" role="button"><i class=""></i>주식회사 어썸인</a>
+					<a class="nav-link nav-logo" href="/" role="button"><i class="logo-i"></i></a>
 				</li>
 			</ul>
 			<!-- Right navbar links -->
@@ -75,6 +75,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</a>
 					</li>
 				<?php }?>
+				<li class="nav-item">
+					<a href="/main/about" class="nav-link <?=$menu_code=='016'?'active':''?>">
+						<!--						<i class="nav-icon fas fa-mail-bulk"></i>-->
+						<p>
+							회사소개
+						</p>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="/product" class="nav-link <?=$menu_code=='015'?'active':''?>">
 <!--						<i class="nav-icon fas fa-mail-bulk"></i>-->
