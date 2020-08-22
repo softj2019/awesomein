@@ -41,25 +41,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</div>
 						<div class="col-12 col-sm-6">
+							<?php
+							$attributes = array('class' => 'form-horizontal','id' => 'default_form');
+							echo form_open('/payment/request', $attributes);
+							?>
 							<h3 class="my-3">어썸인 친절한 성 대표의 투자레터 </h3>
 							<p>무료배송</p>
-
 							<hr>
-
 <!--							<h4 class="mt-3">구독 옵션 <small>option</small></h4>-->
-							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<label class="btn btn-default text-center">
-									<input type="radio" name="color_option" id="color_option1" autocomplete="off">
+							<div class="btn-group btn-group-toggle " data-toggle="buttons">
+								<label class="btn btn-pink text-center">
+									<input type="radio" name="amount"   value="80000">
 									<span class="text-xl">1년</span>
 									<br>
 									정기구독
 								</label>
-<!--								<label class="btn btn-default text-center">-->
-<!--									<input type="radio" name="color_option" id="color_option1" autocomplete="off">-->
-<!--									<span class="text-xl">M</span>-->
-<!--									<br>-->
-<!--									Medium-->
-<!--								</label>-->
+								<label class="btn btn-default text-center">
+									<input type="radio" name="amount" value="8000">
+									<span class="text-xl">1월</span>
+									<br>
+									구독
+								</label>
 <!--								<label class="btn btn-default text-center">-->
 <!--									<input type="radio" name="color_option" id="color_option1" autocomplete="off">-->
 <!--									<span class="text-xl">L</span>-->
@@ -75,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 
 							<div class="bg-gray-light py-2 px-3 mt-4">
-								<h2 class="mb-0 text-right">
+								<h2 class="mb-0 text-right view_amount">
 									80,000 원
 								</h2>
 <!--								<h4 class="mt-0">-->
@@ -86,10 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 							<hr>
 							<h4 class="mt-3">주문자정보 <small></small></h4>
-							<?php
-							$attributes = array('class' => 'form-horizontal','id' => 'default_form');
-							echo form_open('/payment/request', $attributes);
-							?>
+
 							<input type="hidden" name="itemName" value="친절한 성 대표의 투자레터">
 							<input type="hidden" name="amount" value="80000">
 							<input type="hidden" name="listId" value="72186">
@@ -100,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-3 col-form-label">이름 <span class="text-danger">*</span> </label>
 										<div class="col-sm-9">
-											<input type="text" name="userName" class="form-control" id="inputEmail3" placeholder="이름">
+											<input type="text" name="userName" class="form-control" id="inputEmail3" placeholder="이름" value="<?php echo set_value('userName'); ?>">
 										</div>
 										<div class="col-sm-9 offset-sm-3">
 										<?php echo form_error('userName'); ?>
@@ -109,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row mt-1">
 										<label for="inputPassword3" class="col-sm-3 col-form-label">구독메일 <span class="text-danger">*</span></label>
 										<div class="col-sm-9">
-											<input type="email" name="userEmail"  class="form-control" id="inputPassword3" placeholder="이메일">
+											<input type="email" name="userEmail"  class="form-control" id="inputPassword3" placeholder="이메일" value="<?php echo set_value('userEmail'); ?>">
 										</div>
 										<div class="col-sm-9 offset-sm-3">
 										<?php echo form_error('userEmail'); ?>
@@ -128,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row mt-1">
 										<label for="" class="col-sm-3 col-form-label">전화번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-9">
-											<input type="text" name="mobileNumber"  class="form-control" id="" placeholder="전화번호">
+											<input type="text" name="mobileNumber"  class="form-control" id="" placeholder="전화번호" value="<?php echo set_value('mobileNumber'); ?>">
 										</div>
 										<div class="col-sm-9 offset-sm-3">
 											<?php echo form_error('mobileNumber'); ?>
@@ -137,7 +136,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row mt-1">
 										<label for="" class="col-sm-3 col-form-label">생년월일 <span class="text-danger">*</span></label>
 										<div class="col-sm-9">
-											<input type="number" name="birthday"  class="form-control" id="" placeholder="1990.01.10 = 900110">
+											<input type="number" name="birthday"  class="form-control" id="" placeholder="1990.01.10 = 900110" value="<?php echo set_value('birthday'); ?>">
 										</div>
 										<div class="col-sm-9 offset-sm-3">
 											<p>법인카드의 경우 사업자등록번호 10자리</p>
@@ -149,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row">
 										<label for="" class="col-sm-3 col-form-label">카드번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-9">
-											<input type="number" name="cardNo"  class="form-control" id="" placeholder="카드번호">
+											<input type="number" name="cardNo"  class="form-control" id="" placeholder="카드번호" value="<?php echo set_value('cardNo'); ?>">
 										</div>
 										<div class="col-sm-9 offset-sm-3">
 											<?php echo form_error('cardNo'); ?>
@@ -199,7 +198,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="form-group row mt-1">
 										<label for="" class="col-sm-3 col-form-label">비밀번호 <span class="text-danger">*</span></label>
 										<div class="col-sm-4">
-											<input type="number" name="cardPw"  class="form-control" id="" placeholder="앞 두자리">
+											<input type="password" name="cardPw"  class="form-control" id="" placeholder="앞 두자리">
 										</div>
 										<label for="" class="col-sm-2 col-form-label">할부 <span class="text-danger">*</span></label>
 										<div class="col-sm-3">
@@ -271,7 +270,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</nav>
 						<div class="tab-content p-3" id="nav-tabContent">
 							<div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-								상품 안내
+								<p>월 구독료= 8000원</p>
+								<p>연 구독 시 2달 할인 혜택 = 8만원</p>
+								<p><span class="text-bold text-info">연 구독</span>이면 2개월을 무료로 볼 수 있습니다!</p>
 							</div>
 <!--							<div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab"> Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum. </div>-->
 <!--							<div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"> Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. </div>-->

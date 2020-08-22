@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta property="og:image" content="/assets/img/ci/kogas_ci.png">
 	<title>주식회사 어썸인</title>
-	<link rel="shortcut icon" type="image⁄x-icon" href="/assets/dist/img/ci/kogas_ci.ico">
+<!--	<link rel="shortcut icon" type="image⁄x-icon" href="/assets/dist/img/ci/kogas_ci.ico">-->
 	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">

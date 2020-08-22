@@ -656,3 +656,28 @@ html{
 		font-size: 1.75rem;
 	}
 }
+.btn-pink.hover, .btn-pink:active, .btn-pink:hover {
+	background-color: #ea6a6a;
+	color: #fff;
+}
+.btn-pink {
+	color: #fff;
+	background-color: #ea6a6a;
+	border-color: #ea6a6a;
+	box-shadow: none;
+}
+.btn-pink:hover {
+	color: #fff;
+	background-color: #d36060;
+	border-color: #cf5d5d;
+}
+.btn-outline-pink {
+	color: #ea6a6a;
+	border-color: #ea6a6a;
+}
+.btn-outline-pink:hover {
+	color: #fff;
+	background-color: #ea6a6a;
+	border-color: #ea6a6a;
+}
+

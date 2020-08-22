@@ -1309,7 +1309,7 @@ $(document).on('click','.passwordChange',function () {
 		data:$('#passwordChange').serialize(),
 		// async: false
 	}).done(function(data){
-		// console.log(data);
+		console.log(data);
 		if(data.alerts_title){
 			// $('#modal-user').modal('toggle');
 			$.each(data.alerts_title,function (key,value) {
@@ -1928,6 +1928,27 @@ $('#unSubscribe').on("click",function () {
 $('#kko-login-btn').click(function () {
 	window.open('https://kauth.kakao.com/oauth/authorize?client_id=a0c10d1fa237662ef92188216ee55180&redirect_uri='+base_url+'oauth&response_type=code','','width=750, height=900');
 });
+$('input:radio[name=amount_radio]').on("change",function () {
+	$('.view_amount').text(comma($(this).val())+'원')
+	$('input[name=amount]').val($(this).val());
+})
 
+function comma(num){
+	var len, point, str;
+
+	num = num + "";
+	point = num.length % 3 ;
+	len = num.length;
+
+	str = num.substring(0, point);
+	while (point < len) {
+		if (str != "") str += ",";
+		str += num.substring(point, point + 3);
+		point += 3;
+	}
+
+	return str;
+
+}
 
 

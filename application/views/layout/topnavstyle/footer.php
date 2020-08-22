@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="modal-body">
 						<form action="http://awesomein.net/" class="form-horizonatal" id="passwordChange" name="passwordChange" method="post" accept-charset="utf-8">
-							<input type="hidden" name="user_id" value="27">
+							<input type="hidden" name="user_id" value="<?=$this->session->userdata("user_id")?>">
 							<div class="form-group">
 								<div>
 									<input type="password" name="password" placeholder="기존 비밀번호" class="form-control">

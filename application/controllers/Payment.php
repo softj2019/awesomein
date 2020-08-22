@@ -60,6 +60,11 @@ class Payment extends CI_Controller
 		$timestamp = date('YmdHis');
 		$url = 'https://api.payup.co.kr/v2/api/payment/'.$merchantId.'/keyin2';
 		$signature = hash ( "sha256", $merchantId."|".$paymentRow->orderNumber."|".$this->input->post("amount")."|".$apiKey."|".$timestamp);
+		$amount=$this->input->post("amount");
+		//고독 종료일 설정
+		$endTime= '';
+		if($amount=='8000') $endTime = date("Y-m-d H:i:s", strtotime("+1 months"));
+		if($amount=='80000') $endTime = date("Y-m-d H:i:s", strtotime("+1 years"));
 		$param=array(
 			"user_id"=>@$this->session->userdata('user_id'),
 			"orderNumber"=>$paymentRow->orderNumber,
@@ -98,6 +103,7 @@ class Payment extends CI_Controller
 						"name" => $this->input->post("userName"),
 						"kakaoid" => @$this->session->userdata('user_id'),
 						"orderNumber" => $paymentRow->orderNumber,
+						"endTime"=>$endTime,
 					)
 				),
 			);

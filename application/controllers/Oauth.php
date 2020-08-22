@@ -114,6 +114,8 @@ class Oauth extends CI_Controller {
 				$this->common->delete_row('stibee_subscribers',array("email"=>$value,'listId'=>$json_params->id));
 			}
 		}
+
+
 		if($list->Ok){
 			foreach ($list->Value as $item) {
 				$param=array(
@@ -124,7 +126,9 @@ class Oauth extends CI_Controller {
 					"modifiedTime"=>$item->modifiedTime,
 					"user_id"=>$item->kakaoid,
 					"orderNumber"=>$item->orderNumber,
+					"endTime"=>$item->endTime,
 					"email"=>$item->email,
+
 				);
 				$this->common->insert_on_dup('stibee_subscribers',$param,$dup_key='email');
 			}

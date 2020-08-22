@@ -67,6 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<th>이름</th>
 						<th>구독상태</th>
 						<th>구독일</th>
+						<th>구독종료일</th>
 						<th>마지막 업데이트 </th>
 						<th>주문번호</th>
 						<th>결재금액</th>
@@ -88,13 +89,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<td><?php echo $row->email; ?></td>
 								<td><?php echo $row->name; ?></td>
 								<td><?php echo $row->status_name; ?></td>
-								<td><?php echo date('Y-m-d H:i',strtotime($row->createdTime)); ?></td>
-								<td><?php echo date('Y-m-d H:i',strtotime($row->modifiedTime)); ?></td>
+								<td><?php echo date('Y-m-d ',strtotime($row->createdTime)); ?></td>
+								<td><?php echo date('Y-m-d ',strtotime($row->endTime)); ?></td>
+								<td><?php echo date('Y-m-d ',strtotime($row->modifiedTime)); ?></td>
 								<td><?php echo $row->orderNumber; ?></td>
 								<td>
 									<?php echo number_format($row->amount); ?>
 								</td>
-								<td><?php echo date('Y-m-d H:i',strtotime($row->payment_reg_date)); ?></td>
+								<td><?php echo date('Y-m-d',strtotime($row->payment_reg_date)); ?></td>
 							</tr>
 							<?php
 						}

@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary btn-block">회원가입</button>
+						<button type="submit" class="btn btn-pink btn-block">회원가입</button>
 					</div>
 				</div>
 			<?php
@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<p>&nbsp;</p>
 			<div class="row">
 				<div class="col-12">
-					<button class="btn btn-block btn-outline-primary" onclick="location.href='/member/login'">로그인</button>
+					<button class="btn btn-block btn-outline-pink" onclick="location.href='/member/login'">로그인</button>
 				</div>
 			</div>
 

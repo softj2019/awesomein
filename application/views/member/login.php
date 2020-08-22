@@ -82,7 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--					</div>-->
 					<!-- /.col -->
 					<div class="col-12">
-						<button type="submit" class="btn btn-info btn-block">로그인</button><a href="/member/join" class="btn btn-default btn-block">회원가입</a>
+						<button type="submit" class="btn btn-pink btn-block">로그인</button>
+						<a href="/member/join" class="btn btn-outline-pink btn-block">회원가입</a>
 					</div>
 					<!-- /.col -->
 				</div>

@@ -297,7 +297,7 @@ class Member extends CI_Controller {
     public function resetpassword()
     {
         $email_auth = $this->input->get('email_auth');
-        $result = $this->common->select_row('reset_password','',Array('email_auth'=>$email_auth));
+        $result = $this->common->select_row('kguse','',Array('email_auth'=>$email_auth));
         $data['target_url']='member/login';
         $data['email']=$result->email;
         $this->load->view('member/resetpassword',$data);
