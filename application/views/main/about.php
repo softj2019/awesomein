@@ -2,6 +2,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+	<!-- Content Header (Page header) -->
+	<div class="content-header content-h">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0 text-dark pl-20">About Us</h1>
+				</div><!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">회사소개</li>
+					</ol>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.container-fluid -->
+	</div>
 	<!-- Main content -->
 	<div class="content content-w">
 		<div class="container-fluid">
@@ -16,8 +32,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<p>From.<br>CEO</p>
 									<!-- <h3>어썸인<br>홈페이지를 찾아주셔서<br>감사합니다.</h3> -->
 									<h3>
-										어썸인은<br>
-										여러분들의 어썸한 삶을<br>
+                                        <b>어썸인</b>은<br>
+                                        여러분들의 <b>어썸한 삶</b>을<br>
 										응원합니다!<br>
 									</h3>
 									
@@ -26,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="c-us-t">
 								<p class="us-t-tit">
 									안녕하세요.<br>
-									어썸인 대표 성선화입니다.
+                                    <b>어썸인 대표 성선화</b>입니다.
 								</p>
 								<hr>
 								<p class="txt-52">
@@ -81,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<span class="y-txt">2006년</span>- 한국경제신문 입사 : 사회부, 건설부동산부 출입<br>
 									<span class="y-txt">2009년</span>- 건국대학교 부동산 대학원 입학 : 건설개발 전공<br>
 									<span class="y-txt">2012년</span>- 이데일리 입사: 금융부, 투자은행(IB), 증권시장부 출입<br>
-									<span class="y-txt">2020년</span>- 어썸인 설입<br>
+									<span class="y-txt">2020년</span>- 어썸인 설립<br>
 								</p>
 								<hr>
 								<h3 class="flexwrap"><span class="sq-p"></span>저서</h3>

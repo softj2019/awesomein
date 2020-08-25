@@ -45,12 +45,13 @@ class Oauth extends CI_Controller {
 	{
 		$this->load->library("kakao_login");
 		$result = $this->kakao_login->get_profile();
+		$kakao_profile =$result["kakao_account"]["profile"];
 		if($result["id"]){
 			//세션 생성
 			$email =$result["kakao_account"]["email"];
 			$newdata = array(
-//                        'username' => $result->username,
-//				'name' => $result->name,
+//				'username' => $result->username,
+				'name' => $kakao_profile["nickname"],
 				'user_id'=> $result["id"],
 				'logged_in' => TRUE,
 				'email' =>$email,
@@ -68,8 +69,9 @@ class Oauth extends CI_Controller {
 			if(!$userDataResult)$historyValue='회원가입';
 			$param = array(
 				//dup key 를 제일 마지막으로둔다
-
+				'name'=>$kakao_profile["nickname"],
 				'email' => $email,
+				'id'=>$result["id"],
 				'user_id'=>$result["id"],
 			);
 			$this->common->insert_on_dup('kguse',$param,$dup_key='user_id');

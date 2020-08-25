@@ -680,4 +680,8 @@ html{
 	background-color: #ea6a6a;
 	border-color: #ea6a6a;
 }
-
+.card .table a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #444444;
+}

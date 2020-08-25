@@ -3,6 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <script>
 	close();
-	opener.location.href = '/';
+	opener.location.href = '/product';
 
 </script>

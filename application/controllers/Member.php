@@ -129,7 +129,7 @@ class Member extends CI_Controller {
 					'log_data'=>'로그인',
 				);
 				$this->common->insert('kguse_history',$kguse_history_param);
-				redirect(site_url('/'));
+				redirect(site_url('/product'));
 			}else{
 
 				return false;
@@ -265,7 +265,7 @@ class Member extends CI_Controller {
         //인증완료 -> 로그인하세요
         //인증실패 -> 메일다시보내기 -> 코드 등록
     }
-
+	//비밀번호찾기
     function passwordfind(){
         $this->form_validation->set_rules('email', 'email', 'required|callback_email_check');
         if ($this->form_validation->run() == TRUE) {
@@ -293,7 +293,7 @@ class Member extends CI_Controller {
         }
         $this->load->view('member/login',$data);
     }
-
+	//비밀번호 초기화
     public function resetpassword()
     {
         $email_auth = $this->input->get('email_auth');
@@ -302,6 +302,7 @@ class Member extends CI_Controller {
         $data['email']=$result->email;
         $this->load->view('member/resetpassword',$data);
     }
+    //비민번호 초기화 처리
     public function resetpasswordproc()
     {
 		header('Content-type: application/json');

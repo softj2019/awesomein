@@ -62,7 +62,7 @@ $('input[name=select_mode]').on('change',function () {
 $('.startDate').daterangepicker({
 
 	singleDatePicker: true,
-	startDate: '2009-01-01',
+	startDate: moment().subtract(60, 'days'),
 	locale:"ko",
 	locale: {
 		format: 'YYYY-MM-DD',
@@ -1950,5 +1950,28 @@ function comma(num){
 	return str;
 
 }
-
+$('#btnBoardChangeOrder').on("click",function () {
+	var orderArr = $('.order');
+	var formData = $("#defaultForm").serialize();
+	var param='';
+	$.each(orderArr,function (key,value) {
+		if(orderArr.eq(key).val()){
+			param+='&id%5B%5D='+orderArr.eq(key).attr("data-id")
+				 +"&orderNo%5B%5D="+orderArr.eq(key).val()
+			;
+		}
+		// console.log($('input[name=order]').eq(key).val(),$('input[name=order]').eq(key).attr("data-id"))
+	})
+	formData+param
+	$.ajax({
+		type: "POST",
+		url: base_url+'console/boardChangeOrder',
+		data:formData+param,
+		dataType: "json",
+		success: function (data) {
+			// console.log(data);
+		}
+	});
+	location.reload();
+})
 

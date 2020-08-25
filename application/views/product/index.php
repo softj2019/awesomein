@@ -30,10 +30,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-12 col-sm-6">
 							<h3 class="d-inline-block d-sm-none">어썸인 친절한 성 대표의 투자레터</h3>
 							<div class="col-12">
-								<img src="/assets/dist/img/product/product1.png" class="product-image w-75 text-center" alt="Product Image">
+								<img src="/assets/dist/img/product/product3.png" class="product-image w-75 text-center" alt="Product Image">
 							</div>
 							<div class="col-12 product-image-thumbs">
-								<div class="product-image-thumb active "><img src="/assets/dist/img/product/product1.png" alt="Product Image"></div>
+<!--								<div class="product-image-thumb active "><img src="/assets/dist/img/product/product3.png" alt="Product Image"></div>-->
 <!--								<div class="product-image-thumb"><img src="/assets/dist/img/prod-2.jpg" alt="Product Image"></div>-->
 <!--								<div class="product-image-thumb"><img src="/assets/dist/img/prod-3.jpg" alt="Product Image"></div>-->
 <!--								<div class="product-image-thumb"><img src="/assets/dist/img/prod-4.jpg" alt="Product Image"></div>-->
@@ -51,13 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!--							<h4 class="mt-3">구독 옵션 <small>option</small></h4>-->
 							<div class="btn-group btn-group-toggle " data-toggle="buttons">
 								<label class="btn btn-pink text-center">
-									<input type="radio" name="amount"   value="80000">
+									<input type="radio" name="amount_radio"   value="80000">
 									<span class="text-xl">1년</span>
 									<br>
 									정기구독
 								</label>
 								<label class="btn btn-default text-center">
-									<input type="radio" name="amount" value="8000">
+									<input type="radio" name="amount_radio" value="8800">
 									<span class="text-xl">1월</span>
 									<br>
 									구독
@@ -235,7 +235,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<!-- /.card-body -->
 								<div class="card-footer">
-									<button type="submit" class="btn btn-info float-right"><i class="fas fa-credit-card fa-lg mr-2"></i>결제하기</button>
+									<button type="submit" class="btn btn-outline-pink float-right btn-block"><i class="fas fa-credit-card fa-lg mr-2"></i>결제하기</button>
 <!--									<button type="submit" class="btn btn-default float-right"><i class="fas fa-cart-plus fa-lg mr-2"></i>장바구니담기</button>-->
 								</div>
 								<!-- /.card-footer -->
@@ -270,9 +270,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</nav>
 						<div class="tab-content p-3" id="nav-tabContent">
 							<div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-								<p>월 구독료= 8000원</p>
-								<p>연 구독 시 2달 할인 혜택 = 8만원</p>
-								<p><span class="text-bold text-info">연 구독</span>이면 2개월을 무료로 볼 수 있습니다!</p>
+								<p>월 구독료= 8,800원</p>
+								<p>연 구독 시 3개월 할인 혜택 = 8만원</p>
+								<p><span class="text-bold text-info">연 구독</span>이면 3개월을 무료로 볼 수 있습니다!</p>
 							</div>
 <!--							<div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab"> Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum. </div>-->
 <!--							<div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"> Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. </div>-->

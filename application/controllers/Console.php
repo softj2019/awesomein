@@ -47,18 +47,38 @@ class Console  extends CI_Controller
     public function mguser()
     {
         $data=Array();
-		//사용자 정보
-
-
+        //기초설정
 		$data['page_title']="사용자관리";
 //		$data['page_sub_title']="";
 //        $data['page_css_style']="fee.css";
 		$data['menu_code']="009";
 //		$user_data = $this->common->select_row('member','',Array('email'=>@$this->session->userdata('email')));
 
+		//검색조건
+		$keyword = $this->input->post("keyword");
+		$or_like=array();
+		if($keyword){
+			$or_like=array(
+				'email'=>$keyword,
+				'name'=>$keyword,
+			);
+		}
+		//날짜 검색
+		$sdate=$this->input->post_get("startDate",true);
+		$edate=$this->input->post_get("endDate",true);
+		//where,null,false 백틱이나 ' 로 감싸지 않는다
+		$where_null_false=array();
+		if($sdate || $edate) {
+			$where_null_false = array(
+				'kguse.created_at >=' => 'date_format(\'' . $sdate . '\',\'%y-%m-%d 00:00:00\')',
+				'kguse.created_at <=' => 'date_format(date_add(\'' . $edate . '\',interval 1 day),\'%y-%m-%d 00:00:00\')',
+			);
+		}
+
 		//페이징 base_url '컨트롤러명/컨트롤러안의 함수명
 		$config['base_url'] =base_url('console/mguser');
-		$config['total_rows'] = $this->common->select_count('kguse','','');
+		//페이징 총 수량
+		$config['total_rows'] = $this->common->select_count($table='kguse',$sql='',$where='',$coding=false,$where_in_key='',$where_in_array='',$like='',$or_like,$where_null_false);
 		$config['per_page'] = 10;
 
 		$this->pagination->initialize($config);
@@ -69,8 +89,19 @@ class Console  extends CI_Controller
 		$order_by=array('key'=>'created_at','value'=>'desc');
 		//기본목록
 		$data["list"]= $this->common->select_list_table_result('kguse',
-			$sql='kguse.*, (select Z.typename from kgref Z where Z.typetable = \'kguse\' and Z.typecolumn = \'role\' and Z.typecode = kguse.role) as role_name',
-			$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+			$sql='' .
+				'kguse.id,' .
+				'kguse.user_id,' .
+				'kguse.password,' .
+				'kguse.email,' .
+				'kguse.name,' .
+				'kguse.role,' .
+				'kguse.LASTUSE,' .
+				'kguse.TOTALUSE,' .
+				'kguse.created_at,' .
+				'kguse.updated_at,' .
+				' (select Z.typename from kgref Z where Z.typetable = \'kguse\' and Z.typecolumn = \'role\' and Z.typecode = kguse.role) as role_name',
+			$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit,$or_like,$where_null_false);
 
 		$this->load->view('layout/header',$data);
         $this->load->view('console/mguser',$data);
@@ -111,6 +142,19 @@ class Console  extends CI_Controller
 		$this->load->view('console/loginhistory',$data);
 		$this->load->view('layout/footer',$data);
 	}
+
+	public function boardChangeOrder(){
+		header('Content-type: application/json');
+		$orderNo = $this->input->post("orderNo");
+		$bdid = $this->input->post("id");
+		foreach ($bdid as $key=>$value){
+			$this->common->update_rows($table='board',array("order"=>$orderNo[$key]),array("id"=>$value));
+		}
+		echo json_encode('success');
+	}
+
+
+
 	public function boardlist()
 	{
 		$data=Array();
@@ -136,7 +180,7 @@ class Console  extends CI_Controller
 		$data['pagination']= $this->pagination->create_links();
 		$limit[1]=$page;
 		$limit[0]=$config['per_page'];
-		$order_by=array('key'=>'num','value'=>'desc');
+		$order_by=array('key'=>'order','value'=>'desc');
 		$where = array(
 			'type'=>$type,
 //			"(@rownum:=0) = "=>0,
@@ -265,13 +309,17 @@ class Console  extends CI_Controller
 
 		$this->form_validation->set_rules('title', '글 제목', 'required');
 		$this->form_validation->set_rules('content', '글 내용','required');
-
+		$this->db->select_max('order');
+		$query = $this->db->get('board');
+		$result = $query->row();
+		$maxorder = $result->order + 1;
 		if ($this->form_validation->run() == TRUE) {
 			$param =  array(
 				"title"=>$this->input->post("title"),
-				"content"=>$this->input->post("content"),
+				"content"=>addslashes($this->input->post("content")),
 				"user_id"=>@$this->session->userdata('user_id'),
 				"type"=>$this->input->post("board_type"),
+				"`order`"=>number_format($maxorder),
 				"br_cd"=>$br_cd,
 			);
 			$this->common->insert_on_dup('board',$param);
@@ -563,9 +611,35 @@ class Console  extends CI_Controller
 		$data['page_title']="구독자 관리";
 		$data['menu_code']="013";
 		$data['footerScript']='';
+
+
+		//검색조건
+		$keyword = $this->input->post("keyword");
+		$or_like=array();
+		if($keyword){
+			$or_like=array(
+				'email'=>$keyword,
+				'name'=>$keyword,
+				'orderNumber'=>$keyword,
+			);
+		}
+		//날짜 검색
+		$sdate=$this->input->post_get("startDate",true);
+		$edate=$this->input->post_get("endDate",true);
+		//where,null,false 백틱이나 ' 로 감싸지 않는다
+		$where_null_false=array();
+		if($sdate || $edate){
+			$where_null_false=array(
+				'A.createdTime >=' =>'date_format(\''.$sdate.'\',\'%y-%m-%d 00:00:00\')',
+				'A.createdTime <=' =>'date_format(date_add(\''.$edate.'\',interval 1 day),\'%y-%m-%d 00:00:00\')',
+			);
+		}
+
+
+
 		//페이징
 		$config['base_url'] =base_url('console/stibee');
-		$config['total_rows'] = $this->common->select_count('stibee_subscribers','','');
+		$config['total_rows'] = $this->common->select_count('stibee_subscribers A',$sql='',$where='',$coding=false,$where_in_key='',$where_in_array='',$like='',$or_like,$where_null_false);
 		$config['per_page'] = 10;
 
 		$this->pagination->initialize($config);
@@ -580,7 +654,7 @@ class Console  extends CI_Controller
 			"(select Z.amount from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as amount," .
 			"(select Z.reg_date from payment Z where Z.userEmail=A.email order by Z.reg_date DESC limit 1)as payment_reg_date" .
 			"";
-		$data["list"]=$this->common->select_list_table_result($table='stibee_subscribers A',$sql,$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+		$data["list"]=$this->common->select_list_table_result($table='stibee_subscribers A',$sql,$where='',$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit,$or_like,$where_null_false);
 		$this->load->view('layout/header',$data);
 		$this->load->view('console/stibee',$data);
 		$this->load->view('layout/footer',$data);

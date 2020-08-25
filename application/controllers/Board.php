@@ -16,13 +16,14 @@ class Board  extends CI_Controller
 //        $this->load->model('admin_member');
 //        $this->load->model('kgart_model');
 		$this->load->model('common');
-        //CSRF 방지
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-        $this->load->helper('date');
-        $this->load->helper('array');
+		//CSRF 방지
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->load->helper('date');
+		$this->load->helper('array');
 		$this->load->helper('alert');
 		$this->load->library('pagination');
+		$this->load->library('user_agent');
 
 
 
@@ -35,6 +36,7 @@ class Board  extends CI_Controller
 		}
 
 	}
+
     public function boardlist()
     {
         $data=Array();
@@ -44,15 +46,16 @@ class Board  extends CI_Controller
 		if(!$type){
 			$type = "A";
 		}
-		$data['page_title']="지난레터보기";
+		$data['page_title']="지난레터&자주하는질문";
 //		$data['page_sub_title']="";
 //        $data['page_css_style']="fee.css";
 		$data['menu_code']="010";
 //		$user_data = $this->common->select_row('member','',Array('email'=>@$this->session->userdata('email')));
 
+
 		//페이징 base_url '컨트롤러명/컨트롤러안의 함수명
 		$config['base_url'] =base_url('board/boardlist');
-		$config['total_rows'] = $this->common->select_count('board','',array('type'>$type));
+		$config['total_rows'] = $this->common->select_count('board','',array('type'=>$type));
 		$config['per_page'] = 10;
 
 		$this->pagination->initialize($config);
@@ -60,10 +63,14 @@ class Board  extends CI_Controller
 		$data['pagination']= $this->pagination->create_links();
 		$limit[1]=$page;
 		$limit[0]=$config['per_page'];
-		$order_by=array('key'=>'num','value'=>'desc');
+		$order_by=array('key'=>'order','value'=>'desc');
+		$where = array(
+			'type'=>$type,
+//			"(@rownum:=0) = "=>0,
+
+		);
 		//기본목록
-		$data["list"]= $this->common->select_list_table_result('board a,(select (@rownum:=0) = 0) tmp',$sql='(@rownum:=@rownum+1) as num,a.*,(select kguse.name from kguse where kguse.id = a.user_id) as name',array('type'=>$type),$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
-//		$data["list"]= $this->common->select_list_table_result('board',$sql='board.*,(select kguse.name from kguse where kguse.id = board.user_id) as name',array('type'=>$type),$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
+		$data["list"]= $this->common->select_list_table_result('board a,(select (@rownum:=0) = 0) tmp',$sql='(@rownum:=@rownum+1) as num,a.*,(select kguse.name from kguse where kguse.id = a.user_id) as name',$where,$coding=false,$order_by,$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit);
 
 		$this->load->view('layout/topnavstyle/header',$data);
         $this->load->view('board/boardlist',$data);

@@ -6,38 +6,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="container-fluid">
 		<?php
 		$attributes = array('class' => 'form-horizonatal', 'id' => 'defaultForm','name' => 'defaultForm');
-		echo form_open('console/getStibee',$attributes);
+		echo form_open('console/stibee',$attributes);
 		?>
 
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header row">
 <!--				<button type="button" class="btn btn-danger deleteUser">사용자 삭제</button>-->
-
-				<blockquote class="quote-primary">
-					<h5 class="text-gray-dark">
-						스티비 로그인 > 주소록 목록에서 주소록 이름을 클릭하여 “주소록 대시보드"로 이동
-						<br>브라우저에 표시되는 URL에서 "lists" 뒤의 숫자를 확인
-						<br>(기본 :72186 유료사용자)
-					</h5>
-				</blockquote>
-				<div class="form-group row">
-					<label class="col-form-label col-2">주소록 리스트 ID</label>
-					<div class="col-2">
-						<input type="text" name="listId" class="form-control" value="72186">
+				<div class="col-5">
+					<blockquote class="quote-indigo">
+						<h5>주소록 동기화</h5>
+						<h6 class="text-gray-dark text-sm">
+							스티비 로그인 > 주소록 목록에서 주소록 이름을 클릭 >
+							“주소록 대시보드"로 이동
+							<br>브라우저에 표시되는 URL에서 "lists" 뒤의 숫자를 확인 (기본 :72186 유료사용자)
+						</h6>
+					</blockquote>
+				</div>
+				<div class="col-3 col-form-label">
+					<label class="col-form-label">주소록 리스트 ID</label>
+					<div class="col-form-label">
+						<div class="input-group col-form-label">
+							<input type="text" name="listId" class="form-control" value="72186">
+							<span class="input-group-append">
+							<button type="button" class="btn btn-default getStibee"><i class="fas fa-sync-alt"></i> 스티비 주소록 동기화</button>
+						</span>
+						</div>
 					</div>
-					<div class="col-8">
-						<button type="button" class="btn btn-default getStibee"><i class="fas fa-sync-alt"></i> 스티비 주소록 동기화</button>
+				</div>
+			</div>
+			<div class="card-header row">
+				<div class="col-2">
+					<label>검색시작일</label>
+					<div class="input-group">
+						<div class="input-group-prepend">
+						  <span class="input-group-text">
+							<i class="far fa-calendar-alt"></i>
+						  </span>
+						</div>
+						<input type="text" name="startDate" class="form-control float-right startDate startDateCustom bg-white" value="<?php echo set_value('startDate') ?>">
+					</div>
+				</div>
+				<div class="col-2">
+					<label>검색종료일</label>
+					<div class="input-group">
+						<div class="input-group-prepend">
+								  <span class="input-group-text">
+									<i class="far fa-calendar-alt"></i>
+								  </span>
+						</div>
+						<input type="text" name="endDate" class="form-control float-right endDate bg-white" value="<?php echo set_value('endDate') ?>">
+					</div>
+
+				</div>
+				<div class="col-4">
+					<label>검색어</label>
+					<div class="input-group">
+						<input type="text" name="keyword" class="form-control" placeholder="이름 또는 email " value="<?php echo set_value('keyword') ?>">
+						<span class="input-group-append">
+						<button type="submit" class="btn btn-info btn-flat"><i class="fas fa-search"></i></button>
+					  </span>
+					</div>
+				</div>
+				<div class="col-4">
+					<label class="ml-4">관리버튼</label>
+					<div class="col-form-label">
 						<button type="button" class="btn btn-info ml-4" data-toggle="modal" data-target="#modal-fom-subscribers"><i class="fas fa-user-plus"></i> </button>
 						<button type="button" class="btn btn-danger ml-1" id="unSubscribe" ><i class="fas fa-stop-circle"></i> </button>
 						<button type="button" class="btn btn-default ml-1" id="deleteSubscribers"><i class="fas fa-trash"></i> </button>
 					</div>
 				</div>
-				<div class="form-group row">
-
-				</div>
-
 			</div>
-
 			<div class="card-body table-responsive">
 
 				<table class="table table-hover table-striped table-sm">

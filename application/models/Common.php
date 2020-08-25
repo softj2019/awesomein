@@ -50,10 +50,20 @@ class Common extends CI_Model
         $result = $this->db->get($table);
         return $result->result_array();
     }
-    function select_count($table='',$sql='',$where='',$coding=false,$where_in_key='',$where_in_array='')
+    function select_count($table='',$sql='',$where='',$coding=false,$where_in_key='',$where_in_array='',$like='',$or_like='',$where_null_false='')
     {
         $this->db->select($sql);
         if($where)  $this->db->where($where);
+		if($where_null_false)  $this->db->where($where_null_false,null,false);
+		if($like) $this->db->like($like);
+
+		if($or_like) {
+			//검색전용
+			$this->db->group_start();
+			$this->db->or_like($or_like);
+			$this->db->group_end();
+		}
+
         if($where_in_key) $this->db->where_in($where_in_key,$where_in_array);
         $result = $this->db->get($table);
         return $result->num_rows();
@@ -64,13 +74,23 @@ class Common extends CI_Model
 			$this->db->where_in($key, $data);
 		}
 	}
-    function select_list_table_result($table='',$sql='',$where='',$coding=false,$order_by='',$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit='')
+    function select_list_table_result($table='',$sql='',$where='',$coding=false,$order_by='',$group_by='',$where_in='',$like='',$joina='',$joinb='',$limit='',$or_like='',$where_null_false='')
     {
         $this->db->select($sql,$coding);
         if($where)  $this->db->where($where);
+		if($where_null_false)  $this->db->where($where_null_false,null,false);
 //        if($where_in) $this->db->where_in($where_in);
 		if($where_in) $this->multiple_where_in($where_in);
-        if($like) $this->db->like($like[0],$like[1],$like[2]);
+//        if($like) $this->db->like($like[0],$like[1],$like[2]);
+		if($like) $this->db->like($like);
+
+		if($or_like) {
+			//검색전용
+			$this->db->group_start();
+			$this->db->or_like($or_like);
+			$this->db->group_end();
+		}
+
         if($joina) $this->db->join($joina[0],$joina[1],$joina[2]);
         if($joinb) $this->db->join($joinb[0],$joinb[1],$joinb[2]);
         if($limit) $this->db->limit($limit[0],$limit[1]);

@@ -63,7 +63,7 @@ class Payment extends CI_Controller
 		$amount=$this->input->post("amount");
 		//고독 종료일 설정
 		$endTime= '';
-		if($amount=='8000') $endTime = date("Y-m-d H:i:s", strtotime("+1 months"));
+		if($amount=='8800') $endTime = date("Y-m-d H:i:s", strtotime("+1 months"));
 		if($amount=='80000') $endTime = date("Y-m-d H:i:s", strtotime("+1 years"));
 		$param=array(
 			"user_id"=>@$this->session->userdata('user_id'),
