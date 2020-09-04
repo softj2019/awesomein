@@ -118,6 +118,18 @@ class Payment extends CI_Controller
 			$param["cardName"]=$payupResult->cardName;
 			$param["kakaoResultCode"]=$payupResult->kakaoResultCode;
 			$this->common->insert("payment",$param);
+			$param_stibee=array(
+//				"listId"=>$json_params->id,
+				"name"=>$this->input->post("userName"),
+				"status"=>"W",
+				"createdTime"=>date("Y-m-d H:i:s"),
+//				"modifiedTime"=>$item->modifiedTime,
+				"user_id"=>@$this->session->userdata('user_id'),
+				"orderNumber"=>$paymentRow->orderNumber,
+				"endTime"=>$endTime,
+				"email"=>$this->input->post("userEmail"),
+			);
+			$this->common->insert_on_dup('stibee_subscribers',$param_stibee,$dup_key='email');
 			redirect(base_url('mypage/mystibee'));
 
 		}else{
